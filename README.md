@@ -30,9 +30,6 @@ MedicRP is a plugin designed for the SCP EXILED framework, enhancing gameplay by
 
 Contributions to MedicRP are welcome! Feel free to submit bug reports, feature requests, or pull requests through GitHub.
 
-## License
-
-MedicRP is licensed under the [MIT License](LICENSE), granting users the freedom to modify and distribute the plugin according to their needs.
 
 ---
 
