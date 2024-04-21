@@ -1,4 +1,3 @@
-Certainly! Here's a suggested README description for your plugin:
 
 ---
 
