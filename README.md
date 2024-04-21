@@ -13,12 +13,6 @@ MedicRP is a plugin designed for the SCP EXILED framework, enhancing gameplay by
 - **Customizable Healing Options:** Fine-tune healing mechanics with configurable parameters such as healing times, healing amounts, and more, to tailor the plugin to your server's needs.
 - **Intuitive User Interface:** Clear and concise in-game hints and messages guide players through the healing process, ensuring smooth and seamless interactions.
 
-## Usage
-
-- Use the `heal` command to initiate healing actions on players within your line of sight.
-- Configure role-based healing buffs to enhance the effectiveness of designated medics.
-- Fine-tune healing mechanics and parameters in the `config.yml` file to match your server's gameplay style.
-
 ## Contributing
 
 Contributions to MedicRP are welcome! Feel free to submit bug reports, feature requests, or pull requests through GitHub.
