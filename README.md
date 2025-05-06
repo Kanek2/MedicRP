@@ -13,7 +13,6 @@ MedicRP is an EXILED framework plugin that revolutionizes the medical system in 
   - Medkits with limited uses
   - SCP-500 with full potential restoration
   - Makeshift healing for medics (Press noclip button while looking at someone)
-  - Painkillers (optional)
   - Healing efectivness system wich decreases over time
 - **Smart Target Detection**: Uses raycasting to accurately find the closest alive target in line of sight
 
