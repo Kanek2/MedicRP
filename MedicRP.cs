@@ -1,50 +1,46 @@
 ﻿using Exiled.API.Features;
-using Exiled.Events.Handlers;
-using System;
 using HarmonyLib;
+using MedicRP.Localization;
 
 namespace MedicRP
 {
-    public class Plugin : Plugin<Config>
+    public class MedicRP : Plugin<Config>
     {
-        public override string Name => "MedicRP";
-        public override string Author => "Kanek";
-        public override Version RequiredExiledVersion => new Version(9, 5, 2);
-        public override Version Version => new Version(2, 0, 0);
+        public override string Name   => "MedicRP";
+        public override string Prefix => "MedicRP";
+        public override string Author => "Kanekuu";
+
+        private MedicRPEventHandler _handler;
+        private Tranlationmanager          _loc;
+        private Harmony                    _harmony;
         
-        public static Plugin Instance { get; private set; }
-        private MRPMainEventHandler eventHandler;
+        public static MedicRP Instance { get; private set; }
 
         public override void OnEnabled()
         {
             Instance = this;
-            eventHandler = new MRPMainEventHandler();
-            
-            Exiled.Events.Handlers.Player.UsingItem += eventHandler.OnUsingItem;
-            Exiled.Events.Handlers.Player.UsingItemCompleted += eventHandler.OnUsedItem;
-            Exiled.Events.Handlers.Player.ChangingItem += eventHandler.OnSelectedItem;
-            Exiled.Events.Handlers.Player.PickingUpItem += eventHandler.OnPickingUpItem;
-            Exiled.Events.Handlers.Player.ChangingRole += eventHandler.OnChangingRole;
-            Exiled.Events.Handlers.Player.TogglingNoClip += eventHandler.OnTogglingNoClip;
-            
-            Harmony harmony = new Harmony("MedicItemsPatch");
-            harmony.PatchAll(); 
-
-            
             base.OnEnabled();
+
+            _harmony = new Harmony("MedicRP.Patches");
+            _harmony.PatchAll();
+
+            _loc     = new Tranlationmanager();
+            _handler = new MedicRPEventHandler(Config, _loc);
+            _handler.Register();
         }
 
         public override void OnDisabled()
         {
-            Exiled.Events.Handlers.Player.UsingItem -= eventHandler.OnUsingItem;
-            Exiled.Events.Handlers.Player.UsingItemCompleted -= eventHandler.OnUsedItem;
-            Exiled.Events.Handlers.Player.ChangingItem -= eventHandler.OnSelectedItem;
-            Exiled.Events.Handlers.Player.PickingUpItem -= eventHandler.OnPickingUpItem;
-            Exiled.Events.Handlers.Player.ChangingRole -= eventHandler.OnChangingRole;
-            Exiled.Events.Handlers.Player.TogglingNoClip -= eventHandler.OnTogglingNoClip;
+            _handler?.Unregister();
+            _handler?.Dispose();
+            _handler = null;
+            _loc     = null;
+
+            _harmony.UnpatchAll(_harmony.Id);
+            _harmony = null;
             
-            eventHandler.Dispose();
             Instance = null;
+            
             base.OnDisabled();
         }
     }
