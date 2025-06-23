@@ -1,0 +1,17 @@
+﻿# Rider / Visual Studio
+.idea/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+
+# NuGet packages
+packages/
+
+# Rider config
+*.DotSettings.user
+
+# Logs
+*.log
