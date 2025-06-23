@@ -8,34 +8,41 @@ namespace MedicRP
     public class Config : IConfig
     {
         public bool IsEnabled { get; set; } = true;
-        public bool Debug { get; set; } = true;
+        public bool Debug { get; set; } = false;
 
-        [Description("Max healing distance")]
-        public float HealLookDistance { get; set; } = 3f;
+        [Description("Medkit healing duration in seconds")]
+        public float HealingTime { get; set; } = 10f;
 
-        [Description("Allowed movement during healing")]
-        public float HealMaxMovement { get; set; } = 1f;
-
-        [Description("Makeshift healing duration")]
-        public int HealingTime { get; set; } = 10;
-
-        [Description("HP from makeshift healing")]
+        [Description("Total HP healed from medkit")]
         public float HealingAmount { get; set; } = 10f;
+
+        [Description("Painkiller healing duration in seconds")]
+        public float PainkillerDuration { get; set; } = 2f;
+
+        [Description("Total HP healed from painkiller")]
+        public float PainkillerTotalHeal { get; set; } = 15f;
+
+        [Description("Potential loss per medkit use")]
+        public float PotentialLossPerMedkitUse { get; set; } = 3.33f;
+
+        [Description("Potential loss per painkiller use")]
+        public float PotentialLossPainkiller { get; set; } = 2f;
+
+        [Description("Maximum healing distance")]
+        public float HealDistance { get; set; } = 3f;
 
         [Description("Medic bonus HP")]
         public float MedicHealingBuff { get; set; } = 20f;
         
-        [Description("Default potential")]
+        [Description("Default potential [0-100]")]
         public float DefaultPotential { get; set; } = 100f;
 
         [Description("Max medkit uses")]
         public int MaxMedkitUses { get; set; } = 3;
-
-        [Description("Healing reduction per use")]
-        public float HealingReduction { get; set; } = 3.33f;
+        
 
         [Description("Medic role identifiers")]
-        public List<string> medicBuffRoles { get; set; } = new()
+        public List<string> MedicBuffRoles { get; set; } = new()
         {
             "Medic",
             "Doctor",
