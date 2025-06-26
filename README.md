@@ -68,7 +68,7 @@ Key aspects:
 | **Version** | 2.0.0 |
 | **Author** | Kanekuu |
 | **Required EXILED** | 9.5.2+ |
-| **Dependencies** | EXILED, MEC, HarmonyX |
+| **Dependencies** | EXILED, HarmonyX |
 
 ## Contributing
 
