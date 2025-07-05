@@ -25,6 +25,7 @@ namespace MedicRP
         private readonly Dictionary<Player, float> _potential = new();
         private readonly Dictionary<ushort, int> _medkitUses = new();
         private readonly Dictionary<Player, CoroutineHandle> _running = new();
+        private readonly Dictionary<Player, byte> _savedSlowness = new();
 
         private float MedkitDuration = MedicRP.Instance.Config.HealingTime;
         private float PainkillerDuration = MedicRP.Instance.Config.PainkillerDuration;
@@ -108,6 +109,14 @@ namespace MedicRP
         {
             if (_running.TryGetValue(p, out var h)) Timing.KillCoroutines(h);
             p.DisableEffect(EffectType.Slowness);
+            
+            if (_savedSlowness.TryGetValue(p, out var slowness))
+            {
+                if (slowness > 0)
+                    p.EnableEffect(EffectType.Slowness, slowness);
+                _savedSlowness.Remove(p);
+            }
+            
             _running.Remove(p);
         }
         
@@ -225,7 +234,9 @@ namespace MedicRP
             float pot = GetPotential(target);
             float time = 0f;
             float duration = MedkitDuration;
-
+            
+            _savedSlowness[healer] = healer.GetEffect(EffectType.Slowness)?.Intensity ?? 0;
+            
             healer.EnableEffect(EffectType.Slowness, 50);
           
 
@@ -247,6 +258,12 @@ namespace MedicRP
             finally
             {
                 healer.DisableEffect(EffectType.Slowness);
+                if (_savedSlowness.TryGetValue(healer, out var slowness))
+                {
+                    if (slowness > 0)
+                        healer.EnableEffect(EffectType.Slowness, slowness);
+                    _savedSlowness.Remove(healer);
+                }
             }
 
             float rawHeal = MedkitTotalHeal * pot / 100f;
